@@ -1,4 +1,4 @@
-﻿namespace Garage.Entities
+﻿namespace GarageExercise.Entities
 {
     public class Bus : Vehicle
     {
