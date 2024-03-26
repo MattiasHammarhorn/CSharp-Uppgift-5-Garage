@@ -5,15 +5,29 @@ namespace GarageExercise
 {
     internal class Garage<T> : IEnumerable<T> where T : class
     {
-        private T[] items;
+        private List<T> items;
         private Vehicle[] vehicles;
-        private readonly int parkingSpace;
+        private int parkingSpace;
 
         public Garage(int parkingSpace)
         {
-            items = new T[parkingSpace];
             vehicles = new Vehicle[parkingSpace];
             this.parkingSpace = parkingSpace;
+        }
+
+        // Loop through array to find an index which isn't null
+        // and store the vehicle there
+        public virtual void Add<T>(T item)
+        {
+            for (int i = 0; i < vehicles.Length; i++)
+            {
+                if (vehicles[i] == null)
+                {
+                    // Todo: handle possible null exception
+                    vehicles[i] = item as Vehicle;
+                    break;
+                }
+            }
         }
 
         public Vehicle[] GetAllVehicles()
