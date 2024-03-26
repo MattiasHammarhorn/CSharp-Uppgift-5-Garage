@@ -6,7 +6,7 @@
         
         public FuelType FuelType { get => fuelType; set => fuelType = value; }
 
-        public Car(int registrationNumber, string color, int amountOfWheels, int payload, string model, string make, FuelType fuelType) : base(registrationNumber, color, amountOfWheels, payload, model, make)
+        public Car(string registrationNumber, string color, int amountOfWheels, int payload, string model, string make, FuelType fuelType) : base(registrationNumber, color, amountOfWheels, payload, model, make)
         {
             FuelType = fuelType;
         }
