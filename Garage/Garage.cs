@@ -30,6 +30,16 @@ namespace GarageExercise
             }
         }
 
+        public virtual void Remove(Vehicle vehicle)
+        {
+            for (int i = 0; i < vehicles.Length; i++)
+            {
+                if (vehicles[i] == vehicle)
+                    // Todo: handle possible null exception
+                    vehicles[i] = null;
+            }
+        }
+
         public Vehicle[] GetAllVehicles()
         {
             return vehicles;

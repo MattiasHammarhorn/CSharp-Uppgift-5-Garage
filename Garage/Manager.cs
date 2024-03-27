@@ -26,6 +26,7 @@ namespace GarageExercise
                 Console.WriteLine("1. List all vehicles");
                 Console.WriteLine("2. List all vehicle types");
                 Console.WriteLine("3. Add vehicle");
+                Console.WriteLine("4. Remove vehicle");
                 Console.Write("Your choice: ");
                 userInput = Console.ReadLine();
 
@@ -39,6 +40,9 @@ namespace GarageExercise
                         break;
                     case "3":
                         AddVehicle();
+                        break;
+                    case "4":
+                        RemoveVehicle();
                         break;
                     case "0":
                         isRunning = false;
@@ -237,6 +241,35 @@ namespace GarageExercise
 
             Vehicle vehicle = new Vehicle(registrationNumber,color,amountOfWheels,payload,model,make);
             return vehicle;
+        }
+
+        private void RemoveVehicle()
+        {
+            string userInput = string.Empty;
+            bool correctInput = false;
+            
+            do
+            {
+                Console.WriteLine("Please enter the registration number for the vehicle you would like to remove: ");
+                Console.Write("Registration number: ");
+                userInput = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(userInput) || string.IsNullOrWhiteSpace(userInput))
+                {
+                    Console.WriteLine("Please a valid registration number");
+                }
+                else
+                {
+                    var vehicles = garage.GetAllVehicles();
+                    var vehicleToDelete = vehicles.Where(v => v.RegistrationNumber == userInput).SingleOrDefault();
+
+                    if (vehicleToDelete != null)
+                        garage.Remove(vehicleToDelete);
+                    else
+                        Console.WriteLine("Couldn't find a vehicle by that registration number.");
+                    correctInput = true;
+                }
+            } while (!correctInput);
         }
 
         internal void SeedData()
