@@ -25,6 +25,7 @@ namespace GarageExercise
                 Console.WriteLine("Welcome to the Garage!");
                 Console.WriteLine("1. List all vehicles");
                 Console.WriteLine("2. List all vehicle types");
+                Console.WriteLine("3. Add vehicle");
                 Console.Write("Your choice: ");
                 userInput = Console.ReadLine();
 
@@ -37,6 +38,7 @@ namespace GarageExercise
                         ListAllVehicleTypes();
                         break;
                     case "3":
+                        AddVehicle();
                         break;
                     case "0":
                         isRunning = false;
@@ -100,6 +102,141 @@ namespace GarageExercise
             Console.WriteLine($"Cars parked: {cars}");
             Console.WriteLine($"Busses parked: {busses}");
             Console.WriteLine($"Boats parked: {boats}");
+        }
+
+        private void AddVehicle()
+        {
+            var vehicle = CreateVehicle();
+            garage.Add(vehicle);
+        }
+
+        // Todo: Refactor all input validation logic to re-usable methods
+        // and move to a helper class
+        internal virtual Vehicle CreateVehicle()
+        {
+            string registrationNumber = string.Empty;
+            string color = string.Empty;
+            int amountOfWheels = 0;
+            int payload = 0;
+            string model = string.Empty;
+            string make = string.Empty;
+
+            string userInput = string.Empty;
+            bool correctInput = false;
+            // Registration number
+            do
+            {
+                Console.WriteLine("Please enter a unique registration number for the vehicle: ");
+                Console.Write("Registration number: ");
+                userInput = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(userInput) || string.IsNullOrWhiteSpace(userInput))
+                {
+                    Console.WriteLine("Please a valid registration number");
+                }
+                else
+                {
+                    registrationNumber = userInput;
+                    correctInput = true;
+                }
+            } while (!correctInput);
+            // Color
+            correctInput = false;
+            do
+            {
+                Console.WriteLine("Please enter a color for the vehicle: ");
+                Console.Write("Color: ");
+                userInput = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(userInput) || string.IsNullOrWhiteSpace(userInput))
+                {
+                    Console.WriteLine("Please a valid color");
+                }
+                else
+                {
+                    color = userInput;
+                    correctInput = true;
+                }
+            } while (!correctInput);
+            // Amount of wheels
+            correctInput = false;
+            do
+            {
+                Console.WriteLine("Please enter the amount of wheels for the vehicle: ");
+                Console.Write("Amount of wheels: ");
+                userInput = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(userInput) || string.IsNullOrWhiteSpace(userInput))
+                {
+                    Console.WriteLine("Please enter a valid amount of wheels");
+                }
+                else
+                {
+                    if (!int.TryParse(userInput, out amountOfWheels))
+                        Console.WriteLine("Please enter a valid amount of wheels");
+                    else
+                        correctInput = true;
+                }
+            } while (!correctInput);
+            // Payload
+            correctInput = false;
+            do
+            {
+                Console.WriteLine("Please enter the maximum payload for the vehicle: ");
+                Console.Write("Maxmimum payload: ");
+                userInput = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(userInput) || string.IsNullOrWhiteSpace(userInput))
+                {
+                    Console.WriteLine("Please enter a valid payload");
+                }
+                else
+                {
+                    if (!int.TryParse(userInput, out payload))
+                    {
+                        Console.WriteLine("Please enter a valid payload");
+                    }
+                    else
+                        correctInput = true;
+                }
+            } while (!correctInput);
+            // Model
+            correctInput = false;
+            do
+            {
+                Console.WriteLine("Please enter the model of the vehicle: ");
+                Console.Write("Model: ");
+                userInput = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(userInput) || string.IsNullOrWhiteSpace(userInput))
+                {
+                    Console.WriteLine("Please a valid model");
+                }
+                else
+                {
+                    model = userInput;
+                    correctInput = true;
+                }
+            } while (!correctInput);
+            // Make
+            correctInput = false;
+            do
+            {
+                Console.WriteLine("Please enter the make of the vehicle: ");
+                Console.Write("Make: ");
+                userInput = Console.ReadLine();
+
+                if (string.IsNullOrEmpty(userInput) || string.IsNullOrWhiteSpace(userInput))
+                    Console.WriteLine("Please a valid make");
+                else
+                {
+                    make = userInput;
+                    correctInput = true;
+                }
+            } while (!correctInput);
+
+            Vehicle vehicle = new Vehicle(registrationNumber,color,amountOfWheels,payload,model,make);
+            return vehicle;
         }
 
         internal void SeedData()

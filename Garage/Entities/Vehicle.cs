@@ -25,5 +25,15 @@
             Model = model;
             Make = make;
         }
+
+        public override string ToString()
+        {
+            return $"Registration number: {RegistrationNumber}" +
+                $"\tColor: {Color}" +
+                $"\tAmount of wheels: {AmountOfWheels}" +
+                $"\tMaximum payload: {Payload}" +
+                $"\tModel: {Model}" +
+                $"\tMake: {Make}";
+        }
     }
 }
